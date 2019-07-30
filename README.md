@@ -8,7 +8,15 @@ Welcome to the CircleCI resource class preview docs! This document gives an over
 
 Using `resource_class`, it is possible to configure CPU and RAM resources for each job. If `resource_class` is not specified or an invalid class is specified, the default `resource_class: medium` will be used. All of the resource classes are available, but some (marked with &#42;AR) require approval from the CircleCI support team to use. Reach out to CircleCI support to enable these for your account.
 
+**In this document:**
 
+1. [Docker](#docker)
+2. [Remote Docker](#remote-docker)
+3. [Linux VM](#linux-vm)
+4. [GPU (Linux)](#gpu-linux)
+5. [macOS](#macos)
+
+<a name="docker"></a>
 ## Docker
 The `docker` key sets Docker containers as the underlying technology to run your job. The Docker image you specify in your configuration is the primary container image in which all steps run.
 
@@ -34,6 +42,30 @@ jobs:
       - run: echo "This runs in a large Docker container"
 ```
 
+<<a name="remote-docker"></a>
+## Remote Docker
+The Remote Docker resource class attaches to builds running in a Docker container so that you can execute Docker commands such as `docker build`. Note that you only need to use remote Docker if the job is running in the Docker executor. Machine and macOS executors can run Docker commands natively.
+
+### Remote Docker resource class
+`resource_class` | vCPU | Memory (GB) | Credits/Minute
+:--- | :---: | :---: | :---:
+`medium` | 2 | 7.5 | 10
+
+### Remote Docker job configuration
+```yaml
+version: 2.1
+jobs:
+  myDockerJob:
+    docker:
+      - image: foo/bar:0.0.1
+    resource_class: large # Uses the "large" Docker executor
+    steps:
+      # ... steps for building/testing app...
+
+      - setup_remote_docker # attaches remote docker resource class
+```
+
+<a name="linux-vm"></a>
 ## Linux VM
 The `machine` executor runs your job in a dedicated, ephemeral virtual machine. Using the `machine` executor gives your application full access to OS resources.
 
@@ -58,28 +90,7 @@ jobs:
       - run: echo "This runs in a large Linux VM"
 ```
 
-## Remote Docker
-The Remote Docker resource class attaches to builds running in a Docker container so that you can execute Docker commands such as `docker build`. Note that you only need to use remote Docker if the job is running in the Docker executor. Machine and macOS executors can run Docker commands natively.
-
-### Remote Docker resource class
-`resource_class` | vCPU | Memory (GB) | Credits/Minute
-:--- | :---: | :---: | :---:
-`medium` | 2 | 7.5 | 10
-
-### Remote Docker job configuration
-```yaml
-version: 2.1
-jobs:
-  myDockerJob:
-    docker:
-      - image: foo/bar:0.0.1
-    resource_class: large # Uses the "large" Docker executor
-    steps:
-      # ... steps for building/testing app...
-
-      - setup_remote_docker # attaches remote docker resource class
-```
-
+<a name="gpu-linux"></a>
 ## GPU (Linux)
 The `gpu` resource class for the `machine` executor runs your job in a virtual machine equipped with GPU. GPU resources are powerful machines designed to run applications that require highly complex calculations. Virtual reality, deep learning, and artificial intelligence are common use cases for GPU.
 
@@ -104,6 +115,7 @@ jobs:
       - run: echo "This runs in a medium GPU enabled Linux VM"
 ```
 
+<a name="macos"></a>
 ## macOS
 The macOS executor runs your job in a macOS environment on a VM. You can also specify which version of Xcode should be used.
 
