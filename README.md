@@ -42,7 +42,7 @@ jobs:
       - run: echo "This runs in a large Docker container"
 ```
 
-<<a name="remote-docker"></a>
+<a name="remote-docker"></a>
 ## Remote Docker
 The Remote Docker resource class attaches to builds running in a Docker container so that you can execute Docker commands such as `docker build`. Note that you only need to use remote Docker if the job is running in the Docker executor. Machine and macOS executors can run Docker commands natively.
 
