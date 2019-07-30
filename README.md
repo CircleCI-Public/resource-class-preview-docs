@@ -4,7 +4,7 @@ Welcome to the CircleCI resource class preview docs! This document gives an over
 
 :warning: **Please Read** :warning: 
 
-**An eligible plan is required to use the `resource_class` feature. If you are currently on a container-based plan, you will need to upgrade to the [CircleCI Performance Plan](https://circleci.com/pricing/usage/).** To upgrade your plan, [log into CircleCI](https://circleci.com/vcs-authorize), and visit the settings for your organization.
+**An eligible plan is required to use the `resource_class` feature. If you are currently on a container-based plan, you will need to upgrade to the [CircleCI Performance Plan](https://circleci.com/pricing/usage/).** To upgrade your plan, [log into CircleCI](https://circleci.com/vcs-authorize), and visit the settings for your organization. If you have any questions, please [reach out the CircleCI sales team](mailto:sales@circleci.com).
 
 Using `resource_class`, it is possible to configure CPU and RAM resources for each job. If `resource_class` is not specified or an invalid class is specified, the default `resource_class: medium` will be used. All of the resource classes are available, but some (marked with &#42;AR) require approval from the CircleCI support team to use. Reach out to CircleCI support to enable these for your account.
 
